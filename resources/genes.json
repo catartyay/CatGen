@@ -1,0 +1,408 @@
+{
+  "base_color": {
+    "name": "Base Color",
+    "alleles": [
+      "B",
+      "b",
+      "bl"
+    ],
+    "descriptions": {
+      "B": "Black",
+      "b": "Chocolate",
+      "bl": "Cinnamon"
+    },
+    "dominance": {
+      "B": 2,
+      "b": 1,
+      "bl": 0
+    },
+    "weights": {
+      "B": 100,
+      "b": 25,
+      "bl": 15
+    },
+    "x_linked": false
+  },
+  "red": {
+    "name": "Red (Orange)",
+    "alleles": [
+      "O",
+      "o"
+    ],
+    "descriptions": {
+      "O": "Red",
+      "o": "Non-Red"
+    },
+    "dominance": {
+      "O": 1,
+      "o": 0
+    },
+    "weights": {
+      "O": 50,
+      "o": 50
+    },
+    "x_linked": true
+  },
+  "dilution": {
+    "name": "Dilution",
+    "alleles": [
+      "D",
+      "d"
+    ],
+    "descriptions": {
+      "D": "Non-Dilute",
+      "d": "Dilute"
+    },
+    "dominance": {
+      "D": 1,
+      "d": 0
+    },
+    "weights": {
+      "D": 70,
+      "d": 30
+    },
+    "x_linked": false
+  },
+  "agouti": {
+    "name": "Agouti",
+    "alleles": [
+      "A",
+      "a",
+      "Apb"
+    ],
+    "descriptions": {
+      "A": "Agouti",
+      "a": "Solid",
+      "Apb": "Charcoal"
+    },
+    "dominance": {
+      "A": 2,
+      "a": 0,
+      "Apb": 1
+    },
+    "weights": {
+      "A": 50,
+      "a": 60,
+      "Apb": 10
+    },
+    "x_linked": false
+  },
+  "tabby": {
+    "name": "Tabby Pattern",
+    "alleles": [
+      "Mc",
+      "mc"
+    ],
+    "descriptions": {
+      "Mc": "Mackerel",
+      "mc": "Classic"
+    },
+    "dominance": {
+      "Mc": 1,
+      "mc": 0
+    },
+    "weights": {
+      "Mc": 50,
+      "mc": 50
+    },
+    "x_linked": false
+  },
+  "spotted": {
+    "name": "Spotted",
+    "alleles": [
+      "Sp",
+      "sp"
+    ],
+    "descriptions": {
+      "Sp": "Spotted",
+      "sp": "Non-Spotted"
+    },
+    "dominance": {
+      "Sp": 1,
+      "sp": 0
+    },
+    "weights": {
+      "Sp": 25,
+      "sp": 75
+    },
+    "x_linked": false
+  },
+  "ticked": {
+    "name": "Ticked",
+    "alleles": [
+      "Ta",
+      "ta"
+    ],
+    "descriptions": {
+      "Ta": "Ticked",
+      "ta": "Non-Ticked"
+    },
+    "dominance": {
+      "Ta": 1,
+      "ta": 0
+    },
+    "weights": {
+      "Ta": 15,
+      "ta": 85
+    },
+    "x_linked": false
+  },
+  "bengal": {
+    "name": "Bengal Modifier",
+    "alleles": [
+      "Bm",
+      "bm"
+    ],
+    "descriptions": {
+      "Bm": "Bengal Pattern Modifier",
+      "bm": "No Pattern Modifier"
+    },
+    "dominance": {
+      "Bm": 1,
+      "bm": 0
+    },
+    "weights": {
+      "Bm": 10,
+      "bm": 90
+    },
+    "x_linked": false
+  },
+  "inhibitor": {
+    "name": "Inhibitor (Silver)",
+    "alleles": [
+      "I",
+      "i"
+    ],
+    "descriptions": {
+      "I": "Silver",
+      "i": "Non-Silver"
+    },
+    "dominance": {
+      "I": 1,
+      "i": 0
+    },
+    "weights": {
+      "I": 15,
+      "i": 85
+    },
+    "x_linked": false
+  },
+  "wide_band": {
+    "name": "Wide Band",
+    "alleles": [
+      "Wb",
+      "wb"
+    ],
+    "descriptions": {
+      "Wb": "Wide Band",
+      "wb": "Normal Band"
+    },
+    "dominance": {
+      "Wb": 0,
+      "wb": 0
+    },
+    "weights": {
+      "Wb": 5,
+      "wb": 95
+    },
+    "x_linked": false,
+    "quantitative": true,
+    "expression_levels": {
+      "Wb/Wb": 2,
+      "Wb/wb": 1,
+      "wb/wb": 0
+    }
+  },
+  "color_restriction": {
+    "name": "Color Restriction",
+    "alleles": [
+      "C",
+      "cb",
+      "cs",
+      "c"
+    ],
+    "descriptions": {
+      "C": "Full Color",
+      "cb": "Sepia",
+      "cs": "Colorpoint",
+      "c": "Albino"
+    },
+    "dominance": {
+      "C": 3,
+      "cb": 2,
+      "cs": 1,
+      "c": 0
+    },
+    "weights": {
+      "C": 65,
+      "cb": 15,
+      "cs": 25,
+      "c": 3
+    },
+    "x_linked": false
+  },
+  "white": {
+    "name": "White",
+    "alleles": [
+      "Wd",
+      "Ws",
+      "w"
+    ],
+    "descriptions": {
+      "Wd": "Dominant White",
+      "Ws": "White Spotting",
+      "w": "No White"
+    },
+    "dominance": {
+      "Wd": 2,
+      "Ws": 1,
+      "w": 0
+    },
+    "weights": {
+      "Wd": 2,
+      "Ws": 40,
+      "w": 58
+    },
+    "x_linked": false
+  },
+  "karpati": {
+    "name": "Karpati",
+    "alleles": [
+      "K",
+      "k"
+    ],
+    "descriptions": {
+      "K": "Karpati",
+      "k": "No Karpati"
+    },
+    "dominance": {
+      "K": 1,
+      "k": 0
+    },
+    "weights": {
+      "K": 2,
+      "k": 98
+    },
+    "x_linked": false
+  },
+  "fur_length": {
+    "name": "Fur Length",
+    "alleles": [
+      "L",
+      "l"
+    ],
+    "descriptions": {
+      "L": "Shorthair",
+      "l": "Longhair"
+    },
+    "dominance": {
+      "L": 1,
+      "l": 0
+    },
+    "weights": {
+      "L": 35,
+      "l": 65
+    },
+    "x_linked": false
+  },
+  "eye_pigment_1": {
+    "name": "Eye Pigment Locus 1",
+    "alleles": [
+      "E1",
+      "e1"
+    ],
+    "descriptions": {
+      "E1": "High Stromal Pigment",
+      "e1": "Low Stromal Pigment"
+    },
+    "dominance": {
+      "E1": 0,
+      "e1": 0
+    },
+    "weights": {
+      "E1": 50,
+      "e1": 50
+    },
+    "x_linked": false,
+    "quantitative": true,
+    "pigment_contribution": {
+      "E1": 1.0,
+      "e1": 0.0
+    }
+  },
+  "eye_pigment_2": {
+    "name": "Eye Pigment Locus 2",
+    "alleles": [
+      "E2",
+      "e2"
+    ],
+    "descriptions": {
+      "E2": "High Epithelial Pigment",
+      "e2": "Low Epithelial Pigment"
+    },
+    "dominance": {
+      "E2": 0,
+      "e2": 0
+    },
+    "weights": {
+      "E2": 50,
+      "e2": 50
+    },
+    "x_linked": false,
+    "quantitative": true,
+    "pigment_contribution": {
+      "E2": 1.0,
+      "e2": 0.0
+    }
+  },
+  "eye_pigment_3": {
+    "name": "Eye Pigment Locus 3",
+    "alleles": [
+      "E3",
+      "e3"
+    ],
+    "descriptions": {
+      "E3": "Moderate Pigment",
+      "e3": "Reduced Pigment"
+    },
+    "dominance": {
+      "E3": 0,
+      "e3": 0
+    },
+    "weights": {
+      "E3": 50,
+      "e3": 50
+    },
+    "x_linked": false,
+    "quantitative": true,
+    "pigment_contribution": {
+      "E3": 0.5,
+      "e3": 0.0
+    }
+  },
+  "lipochrome": {
+    "name": "Lipofuscin (Lipochrome)",
+    "alleles": [
+      "Lp",
+      "lp"
+    ],
+    "descriptions": {
+      "Lp": "High Lipofuscin",
+      "lp": "Low Lipofuscin"
+    },
+    "dominance": {
+      "Lp": 0,
+      "lp": 0
+    },
+    "weights": {
+      "Lp": 30,
+      "lp": 70
+    },
+    "x_linked": false,
+    "quantitative": true,
+    "pigment_contribution": {
+      "Lp": 1.0,
+      "lp": 0.0
+    }
+  }
+}
