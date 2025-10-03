@@ -1,14 +1,15 @@
 ﻿"""
-Pedigree viewer dialog - displays multi-generation ancestry
+Enhanced pedigree viewer dialog - displays multi-generation ancestry
+Supports both text and visual modes
 """
 
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QTextEdit,
-                               QPushButton, QLabel)
+                               QPushButton, QLabel, QTabWidget, QWidget, QMessageBox)
 from PySide6.QtCore import Qt
 
 
 class PedigreeDialog(QDialog):
-    """Display pedigree chart for a cat"""
+    """Enhanced pedigree viewer with both text and visual modes"""
     
     def __init__(self, cat, main_window, parent=None):
         super().__init__(parent)
@@ -20,7 +21,7 @@ class PedigreeDialog(QDialog):
         self.setup_ui()
     
     def setup_ui(self):
-        """Create dialog interface"""
+        """Create dialog interface with tabs"""
         layout = QVBoxLayout()
         self.setLayout(layout)
         
@@ -33,15 +34,18 @@ class PedigreeDialog(QDialog):
         title.setStyleSheet("font-size: 14pt; font-weight: bold;")
         layout.addWidget(title)
         
-        # Pedigree text
-        self.text_edit = QTextEdit()
-        self.text_edit.setReadOnly(True)
-        self.text_edit.setFontFamily("Courier")
-        layout.addWidget(self.text_edit)
+        # Create tabs for different views
+        tabs = QTabWidget()
         
-        # Generate pedigree
-        pedigree_text = self.build_pedigree()
-        self.text_edit.setPlainText(pedigree_text)
+        # Visual pedigree tab
+        visual_tab = self.create_visual_tab()
+        tabs.addTab(visual_tab, "🎨 Visual Chart")
+        
+        # Text pedigree tab
+        text_tab = self.create_text_tab()
+        tabs.addTab(text_tab, "📝 Text View")
+        
+        layout.addWidget(tabs)
         
         # Close button
         button_layout = QHBoxLayout()
@@ -51,8 +55,89 @@ class PedigreeDialog(QDialog):
         button_layout.addWidget(close_btn)
         layout.addLayout(button_layout)
     
-    def build_pedigree(self):
-        """Build pedigree chart"""
+    def create_visual_tab(self):
+        """Create visual pedigree tab"""
+        widget = QWidget()
+        layout = QVBoxLayout()
+        widget.setLayout(layout)
+        
+        # Button to open full visual dialog
+        open_visual_btn = QPushButton("🚀 Open Interactive Visual Pedigree")
+        open_visual_btn.setMinimumHeight(60)
+        open_visual_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #4CAF50;
+                color: white;
+                font-size: 14pt;
+                font-weight: bold;
+                border-radius: 8px;
+            }
+            QPushButton:hover {
+                background-color: #45a049;
+            }
+        """)
+        open_visual_btn.clicked.connect(self.open_visual_pedigree)
+        
+        layout.addStretch()
+        layout.addWidget(open_visual_btn)
+        
+        info_label = QLabel(
+            "📊 Interactive Features:\n\n"
+            "• Color-coded nodes (blue = male, pink = female)\n"
+            "• Double-click cats to view details\n"
+            "• Drag to pan, scroll to zoom\n"
+            "• Export as high-quality image\n"
+            "• Adjustable generation depth (3-6 generations)\n"
+            "• Beautiful curved connection lines"
+        )
+        info_label.setStyleSheet("""
+            padding: 20px;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            font-size: 11pt;
+            line-height: 1.5;
+        """)
+        info_label.setWordWrap(True)
+        layout.addWidget(info_label)
+        
+        layout.addStretch()
+        
+        return widget
+    
+    def create_text_tab(self):
+        """Create text pedigree tab"""
+        widget = QWidget()
+        layout = QVBoxLayout()
+        widget.setLayout(layout)
+        
+        self.text_edit = QTextEdit()
+        self.text_edit.setReadOnly(True)
+        self.text_edit.setFontFamily("Courier")
+        layout.addWidget(self.text_edit)
+        
+        # Generate text pedigree
+        pedigree_text = self.build_text_pedigree()
+        self.text_edit.setPlainText(pedigree_text)
+        
+        return widget
+    
+    def open_visual_pedigree(self):
+        """Open the full visual pedigree dialog"""
+        try:
+            from ui.dialogs.visual_pedigree_dialog import VisualPedigreeDialog
+            dialog = VisualPedigreeDialog(self.cat, self.main_window, self)
+            dialog.exec()
+        except ImportError as e:
+            QMessageBox.warning(
+                self,
+                "Feature Unavailable",
+                f"Visual pedigree module not found.\n\n"
+                f"Please ensure visual_pedigree_dialog.py is in ui/dialogs/\n\n"
+                f"Error: {e}"
+            )
+    
+    def build_text_pedigree(self):
+        """Build text pedigree chart"""
         if not self.cat.sire_id and not self.cat.dam_id:
             return "No pedigree information available for this cat."
         
@@ -60,7 +145,6 @@ class PedigreeDialog(QDialog):
         phenotype_calc = self.main_window.phenotype_calculator
         
         def get_cat_info(cat_id):
-            """Get formatted cat information"""
             if cat_id and cat_id in registry:
                 cat = registry.get_cat(cat_id)
                 name = cat.name if cat.name else f"Cat #{cat.id}"
@@ -69,7 +153,6 @@ class PedigreeDialog(QDialog):
             return "Unknown"
         
         def get_ancestors(cat_obj, generation):
-            """Recursively get ancestors"""
             if generation == 0 or not cat_obj:
                 return None
             
@@ -83,10 +166,8 @@ class PedigreeDialog(QDialog):
                 'dam_ancestors': get_ancestors(dam, generation - 1) if dam else None
             }
         
-        # Build pedigree structure (4 generations)
         pedigree = get_ancestors(self.cat, 4)
         
-        # Create text output
         lines = []
         lines.append(f"Subject: {get_cat_info(self.cat.id)}")
         lines.append("=" * 100)
@@ -95,7 +176,7 @@ class PedigreeDialog(QDialog):
         if not pedigree:
             return "\n".join(lines) + "\nNo pedigree information available."
         
-        # Generation 1: Parents
+        # Parents
         lines.append("PARENTS:")
         lines.append("-" * 100)
         
@@ -114,7 +195,7 @@ class PedigreeDialog(QDialog):
         lines.append("")
         lines.append("")
         
-        # Generation 2: Grandparents
+        # Grandparents
         lines.append("GRANDPARENTS:")
         lines.append("-" * 100)
         
@@ -156,7 +237,7 @@ class PedigreeDialog(QDialog):
         lines.append("")
         lines.append("")
         
-        # Generation 3: Great-grandparents (simplified)
+        # Great-grandparents (simplified)
         lines.append("GREAT-GRANDPARENTS:")
         lines.append("-" * 100)
         

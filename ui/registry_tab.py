@@ -222,6 +222,7 @@ class RegistryTab(QWidget):
         row = selected[0].row()
         return int(self.table.item(row, 0).text())
     
+    
     def view_details(self):
         """View detailed information about selected cat"""
         cat_id = self.get_selected_cat_id()
@@ -230,6 +231,7 @@ class RegistryTab(QWidget):
             return
         
         cat = self.main_window.registry.get_cat(cat_id)
+        from ui.dialogs.cat_details_dialog import CatDetailsDialog
         dialog = CatDetailsDialog(cat, self.main_window, self)
         dialog.exec()
     
